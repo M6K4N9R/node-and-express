@@ -1,10 +1,12 @@
-const names = require('./4-names')
-const sayHi = require('./5-utils')
+const path = require('path')
 
-require('./6-function-export')
+console.log(path.sep)
 
-sayHi("Sussan")
-sayHi(names.john)
-sayHi(names.peter)
+const filePath = path.join('/content', 'subfolder', 'test.txt')
+console.log(filePath);
 
+const base = path.basename(filePath)
+console.log(base);
 
+const absolute = path.resolve(__dirname, 'content', 'subfoler', 'test.txt')
+console.log(absolute);
