@@ -1,51 +1,25 @@
-// console.log("first task");
-// console.time();
-// for (let i = 0; i < 10; i++) {
-//   console.log("Hey, everyone is waiting on me");
-// }
-// console.timeEnd();
-
-// console.log("next time");
-
-// const { readFile } = require("fs");
-
-// console.log("started a first task");
-
-// readFile("./content/first.txt", "utf-8", (err, result) => {
-//   if (err) {
-//     console.log(err);
-//     return;
-//   }
-//   console.log(result);
-//   console.log("complete first task");
-// });
-
-// console.log("starting second task")
-
-// asyncronous
-// console.log('first');
-// setTimeout(() => {
-//     console.log('second');
-    
-// }, 0)
-// console.log('third');
-
-// setInterval(() => {
-//     console.log('hello world');
-    
-// }, 2000)
-// console.log('I will run first');
-
-
-const http = require('http')
+const http = require("http");
 
 const server = http.createServer((req, res) => {
-    console.log('request event');
-    res.end('Yo man')
-    
-})
+  if (req.url === "/") {
+    res.end("Home Page");
+  }
+  if (req.url === "/about") {
+    // BLOCKING CODE !!!
+    for (let i = 0; i<1000; i++){
+        for(let j = 0; j<1000; j++){
+            console.log(`${i} and ${j}`);
+            
+        }
+    }
+    res.end("About Page");
+  }
+
+  res.end(
+    '<h2>The page you are looking for doesn\'t exist</h2><a href="/">Go back to home page</a>'
+  );
+});
 
 server.listen(5000, () => {
-    console.log('Server listening on port : 5000....');
-    
-})
+  console.log("Server is listeting on port 5000...");
+});
