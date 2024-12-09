@@ -1,25 +1,40 @@
-const http = require("http");
+const { readFile, writeFile } = require("fs").promises;
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    res.end("Home Page");
+// The util.promisify() could be changed by adding .promises to require('fs').promises.
+// Then you can Just simply use readFile and writeFile
+
+// const util = require("util");
+// const readFilePromise = util.promisify(readFile);
+// const writeFilePromise = util.promisify(writeFile);
+
+const start = async () => {
+  try {
+    const first = await readFile("./content/first.txt", "utf8");
+    const second = await readFile("./content/second.txt", "utf8");
+    await writeFile(
+      "./content/result-mind-granade2.txt",
+      `This is DOUBLE AWESOME: ${first} and ${second}`, {flag: 'a'}
+    );
+    console.log(first, second);
+  } catch (error) {
+    console.log(error);
   }
-  if (req.url === "/about") {
-    // BLOCKING CODE !!!
-    for (let i = 0; i<1000; i++){
-        for(let j = 0; j<1000; j++){
-            console.log(`${i} and ${j}`);
-            
-        }
-    }
-    res.end("About Page");
-  }
+};
 
-  res.end(
-    '<h2>The page you are looking for doesn\'t exist</h2><a href="/">Go back to home page</a>'
-  );
-});
+start();
 
-server.listen(5000, () => {
-  console.log("Server is listeting on port 5000...");
-});
+// const getText = (path) => {
+//   return new Promise((resolve, reject) => {
+//     readFile(path, "utf8", (err, data) => {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve(data);
+//       }
+//     });
+//   });
+// };
+
+// getText("../content/first.txt")
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
