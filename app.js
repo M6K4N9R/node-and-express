@@ -1,6 +1,23 @@
-const _ = require("lodash");
+// console.log("first task");
+// console.time();
+// for (let i = 0; i < 10; i++) {
+//   console.log("Hey, everyone is waiting on me");
+// }
+// console.timeEnd();
 
-const items = [1, [2], [3, [4]]];
-const newItems = _.flattenDeep(items);
-console.log(newItems);
-console.log("Hello people");
+// console.log("next time");
+
+const { readFile } = require("fs");
+
+console.log("started a first task");
+
+readFile("./content/first.txt", "utf-8", (err, result) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log(result);
+  console.log("complete first task");
+});
+
+console.log("starting second task");
